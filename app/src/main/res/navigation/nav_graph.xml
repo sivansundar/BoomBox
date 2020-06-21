@@ -7,7 +7,7 @@
 
     <fragment
         android:id="@+id/mainFragment"
-        android:name="com.app.boombox.Fragments.MainFragment"
+        android:name="com.app.boombox.fragments.MainFragment"
         android:label="fragment_main"
         tools:layout="@layout/fragment_main" >
         <action
@@ -19,12 +19,12 @@
     </fragment>
     <fragment
         android:id="@+id/albumFragment"
-        android:name="com.app.boombox.Fragments.AlbumFragment"
+        android:name="com.app.boombox.fragments.AlbumFragment"
         android:label="fragment_album"
         tools:layout="@layout/fragment_album" />
     <fragment
         android:id="@+id/playlistFragment"
-        android:name="com.app.boombox.Fragments.PlaylistFragment"
+        android:name="com.app.boombox.fragments.PlaylistFragment"
         android:label="fragment_playlist"
         tools:layout="@layout/fragment_playlist" />
 </navigation>

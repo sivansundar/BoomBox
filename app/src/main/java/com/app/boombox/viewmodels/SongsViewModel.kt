@@ -1,16 +1,13 @@
-package com.app.boombox.Viewmodels
+package com.app.boombox.viewmodels
 
 import android.app.Application
-import android.util.Log
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
-import com.app.boombox.models.Song
-import com.app.boombox.Repository.SongRepository
 import com.app.boombox.database.BoomboxDatabase
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.launch
+import com.app.boombox.models.Song
+import com.app.boombox.repository.SongRepository
 import timber.log.Timber
 
 class SongsViewModel(application : Application) : AndroidViewModel(application) {

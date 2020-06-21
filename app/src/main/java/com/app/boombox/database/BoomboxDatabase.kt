@@ -1,18 +1,15 @@
 package com.app.boombox.database
 
 import android.content.Context
-import android.provider.MediaStore
 import androidx.room.Database
 import androidx.room.Room
 import androidx.room.RoomDatabase
 import androidx.sqlite.db.SupportSQLiteDatabase
-import com.app.boombox.Repository.SongRepository
 import com.app.boombox.models.Song
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import timber.log.Timber
-import kotlin.coroutines.coroutineContext
 
 @Database(entities = [Song::class], version = 1, exportSchema = false)
 abstract class BoomboxDatabase : RoomDatabase(){

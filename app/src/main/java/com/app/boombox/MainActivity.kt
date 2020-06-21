@@ -13,11 +13,11 @@ import androidx.lifecycle.ViewModelProviders
 import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.viewModelScope
 import androidx.navigation.Navigation
-import com.app.boombox.Viewmodels.SongsViewModel
 import com.app.boombox.database.BoomboxDatabase
 import com.app.boombox.database.SongDAO
 import com.app.boombox.databinding.ActivityMainBinding
 import com.app.boombox.models.Song
+import com.app.boombox.viewmodels.SongsViewModel
 import com.mtechviral.mplaylib.MusicFinder
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
@@ -142,7 +142,16 @@ class MainActivity : AppCompatActivity() {
 
         for (song in songs) {
             Timber.i("ID : ${song.id} \nTitle : ${song.title} \nArtist : ${song.artist} \n Duration : ${song.duration} \nURI : ${song.uri} ")
-            songDAO.insert(Song(song.id, song.title, song.artist, song.duration, song.uri.toString()))
+            songDAO.insert(
+                Song(
+                    song.id,
+                    song.title,
+                    song.artist,
+                    song.duration,
+                    song.uri.toString(),
+                    song.albumArt.toString()
+                )
+            )
         }
 
         Timber.i("Total songs : ${songs.size}" )

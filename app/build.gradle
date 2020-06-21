@@ -61,6 +61,12 @@ dependencies {
     //MPlayLib
     implementation 'com.mtechviral.mplaylib:mplaylib:1.0.0'
 
+    //ExoPlayer
+    implementation 'com.google.android.exoplayer:exoplayer:2.8.0'
+
+    implementation 'com.google.android.exoplayer:exoplayer-core:2.8.0'
+    implementation 'com.google.android.exoplayer:exoplayer-ui:2.8.0'
+
 
     implementation "com.google.android.material:material:1.1.0"
 

@@ -1,20 +1,19 @@
-package com.app.boombox.Fragments
+package com.app.boombox.fragments
 
 import android.os.Bundle
-import android.util.Log
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
+import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.app.boombox.models.Song
 import com.app.boombox.R
-import com.app.boombox.View.SongAdapter
-import com.app.boombox.Viewmodels.SongsViewModel
 import com.app.boombox.databinding.FragmentMainBinding
+import com.app.boombox.models.Song
+import com.app.boombox.view.SongAdapter
+import com.app.boombox.viewmodels.SongsViewModel
 import timber.log.Timber
 
 // TODO: Rename parameter arguments, choose names that match
@@ -32,7 +31,7 @@ class MainFragment : Fragment() {
     private var param1: String? = null
     private var param2: String? = null
 
-    public lateinit var rootBinding: FragmentMainBinding
+    lateinit var rootBinding: FragmentMainBinding
     private lateinit var viewModel: SongsViewModel
 
 
@@ -52,7 +51,7 @@ class MainFragment : Fragment() {
         rootBinding = DataBindingUtil.inflate(inflater,
             R.layout.fragment_main, container, false)
 
-        rootBinding.setLifecycleOwner(this)
+        rootBinding.lifecycleOwner = this
         return rootBinding.root
     }
 
@@ -65,7 +64,7 @@ class MainFragment : Fragment() {
 
     private fun initAdapter(): Pair<ArrayList<Song>, SongAdapter> {
         val list = ArrayList<Song>()
-        val adapter = SongAdapter(list)
+        val adapter = SongAdapter(list, context)
         rootBinding.songsListRecyclerView.adapter = adapter
 
         return Pair(list, adapter)
