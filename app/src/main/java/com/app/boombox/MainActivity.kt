@@ -1,10 +1,10 @@
 package com.app.boombox
 
 import android.Manifest
-import android.content.Context
 import android.content.pm.PackageManager
 import android.os.Bundle
 import android.util.Log
+import android.view.Menu
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
@@ -35,12 +35,13 @@ class MainActivity : AppCompatActivity() {
         //setContentView(R.layout.activity_main)
         binding = DataBindingUtil.setContentView(this, R.layout.activity_main)
 
+        setSupportActionBar(binding.mainToolbar)
         setupPermissions()
 
         val navigation = Navigation.findNavController(this, R.id.nav_host_fragment)
 
         binding.bottomNavBar.setOnNavigationItemSelectedListener { item ->
-            when(item.itemId) {
+            when (item.itemId) {
                 R.id.home_item -> {
                     // Respond to navigation item 1 click
                     Timber.d("onCreate: HOME")
@@ -65,49 +66,22 @@ class MainActivity : AppCompatActivity() {
             }
         }
 
-
-       /* viewModel = ViewModelProviders.of(this).get(SongsViewModel::class.java)
-        insertSong(Song(0, "Bison", "SKRAT", 30000))
-*/
     }
 
-    /*fun getSongsFromDevice() {
-        val projection = arrayOf(
-            MediaStore.Audio.Media._ID,
-            MediaStore.Audio.Media.ARTIST,
-            MediaStore.Audio.Media.TITLE,
-            MediaStore.Audio.Media.DATA,
-            MediaStore.Audio.Media.DISPLAY_NAME,
-            MediaStore.Audio.Media.DURATION)
 
-        val selection = MediaStore.Audio.Media.IS_MUSIC + " != 0";
+    override fun onCreateOptionsMenu(menu: Menu?): Boolean {
+        super.onCreateOptionsMenu(menu)
 
-        var list = listOf<Song>()
-        application.applicationContext.contentResolver.query(
-            MediaStore.Audio.Media.EXTERNAL_CONTENT_URI,
-            projection,
-            selection,
-            null,
-            null
-        )?.use { cursor ->
-            while (cursor.moveToNext()) {
-                //   list = listOf(Song(cursor.getString(2)))
+        menuInflater.inflate(R.menu.main_menu, menu)
 
-                val song : Song = Song(, )
-
-
-                // responseLiveData.postValue(list)
-               // Log.d("Repo", "getData: ${responseLiveData}")
-            }
-    }*/
-
-   /* fun insertSong(song: Song) {
-        viewModel.insertSongs(song)
-    }*/
+        return true
+    }
 
     private fun setupPermissions() {
-        val permission = ContextCompat.checkSelfPermission(this,
-            Manifest.permission.READ_EXTERNAL_STORAGE)
+        val permission = ContextCompat.checkSelfPermission(
+            this,
+            Manifest.permission.READ_EXTERNAL_STORAGE
+        )
 
         if (permission != PackageManager.PERMISSION_GRANTED) {
             Timber.i("Permission to read external storage denied")
