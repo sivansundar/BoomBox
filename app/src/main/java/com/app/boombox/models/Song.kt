@@ -9,11 +9,13 @@ import kotlinx.android.parcel.Parcelize
 @Entity(tableName = "song_table")
 @Parcelize
 data class Song(
-    @PrimaryKey() var id: Long,
-    @ColumnInfo(name = "name") var name: String,
-    @ColumnInfo(name = "artist") var artist: String,
-    @ColumnInfo(name = "duration") var duration: Long,
-    @ColumnInfo(name = "URI") var uri: String,
-    @ColumnInfo(name = "album_art") var albumArt: String
+    @PrimaryKey() var id: Long?,
+    @ColumnInfo(name = "name") var name: String?,
+    @ColumnInfo(name = "artist") var artist: String?,
+    @ColumnInfo(name = "duration") var duration: Long?,
+    @ColumnInfo(name = "URI") var uri: String?,
+    @ColumnInfo(name = "album_art") var albumArt: String?,
+    @ColumnInfo(name = "album_id") var albumId: Long?,
+    @ColumnInfo(name = "album_name") var albumname: String?
 
 ) : Parcelable

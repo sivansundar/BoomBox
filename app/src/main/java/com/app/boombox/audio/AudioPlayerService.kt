@@ -16,6 +16,7 @@ import com.google.android.exoplayer2.ExoPlayerFactory
 import com.google.android.exoplayer2.Player
 import com.google.android.exoplayer2.SimpleExoPlayer
 import com.google.android.exoplayer2.source.ExtractorMediaSource
+import com.google.android.exoplayer2.source.MediaSource
 import com.google.android.exoplayer2.trackselection.DefaultTrackSelector
 import com.google.android.exoplayer2.ui.PlayerNotificationManager
 import com.google.android.exoplayer2.ui.PlayerNotificationManager.MediaDescriptionAdapter
@@ -25,6 +26,7 @@ import com.google.android.exoplayer2.util.Util
 
 class AudioPlayerService : Service() {
 
+    private lateinit var defaultDataSourceFactory: DefaultDataSourceFactory
     private lateinit var player: SimpleExoPlayer
     private lateinit var context: Context
     private lateinit var uri: Uri
@@ -38,15 +40,54 @@ class AudioPlayerService : Service() {
 
     private lateinit var songItem: Song
 
+    lateinit var songPlaylist: ArrayList<String>
+    private lateinit var singleMediaSource: MediaSource
+
     override fun onCreate() {
         super.onCreate()
-
-
 
         context = this
         player = ExoPlayerFactory.newSimpleInstance(context, DefaultTrackSelector())
 
+        defaultDataSourceFactory = DefaultDataSourceFactory(
+            context, Util.getUserAgent(context, "AudioDef")
+        )
 
+
+        setupPlayerNotificationManager()
+
+    }
+
+
+    override fun onDestroy() {
+        playerNotificationManager.setPlayer(null)
+        player.release()
+        super.onDestroy()
+    }
+
+    override fun onStartCommand(intent: Intent?, flags: Int, startId: Int): Int {
+        if (intent != null) {
+            songItem = intent.extras?.getParcelable("songURI")!!
+            uri = Uri.parse(songItem.uri)
+
+            singleMediaSource = ExtractorMediaSource.Factory(defaultDataSourceFactory)
+                .createMediaSource(uri)
+            //Use Concatenating Media Source for Playlists
+
+            player.prepare(singleMediaSource)
+            player.playWhenReady = true
+
+
+        }
+        return START_STICKY
+    }
+
+    override fun onBind(intent: Intent): IBinder {
+        TODO("Return the communication channel to the service.")
+    }
+
+
+    private fun setupPlayerNotificationManager() {
         playerNotificationManager = PlayerNotificationManager.createWithNotificationChannel(
             context,
             NOTIFICATION_CHANNEL_ID,
@@ -68,7 +109,7 @@ class AudioPlayerService : Service() {
                     return songItem.artist
                 }
 
-                override fun getCurrentContentTitle(player: Player?): String {
+                override fun getCurrentContentTitle(player: Player?): String? {
                     return songItem.name
                 }
 
@@ -99,39 +140,6 @@ class AudioPlayerService : Service() {
         )
 
         playerNotificationManager.setPlayer(player)
-
     }
-
-    override fun onDestroy() {
-        playerNotificationManager.setPlayer(null)
-        player.release()
-        super.onDestroy()
-    }
-
-    override fun onStartCommand(intent: Intent?, flags: Int, startId: Int): Int {
-        if (intent != null) {
-            songItem = intent.extras?.getParcelable("songURI")!!
-            uri = Uri.parse(songItem.uri)
-
-            var defaultDataSourceFactory = DefaultDataSourceFactory(
-                context, Util.getUserAgent(context, "AudioDef")
-            )
-
-            var mediaSource = ExtractorMediaSource.Factory(defaultDataSourceFactory)
-                .createMediaSource(uri)
-
-            //Use Concatenating Media Source for Playlists
-
-            player.prepare(mediaSource)
-            player.playWhenReady = true
-
-        }
-        return START_STICKY
-    }
-
-    override fun onBind(intent: Intent): IBinder {
-        TODO("Return the communication channel to the service.")
-    }
-
 
 }

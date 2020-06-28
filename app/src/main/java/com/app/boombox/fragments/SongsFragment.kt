@@ -10,9 +10,9 @@ import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.app.boombox.R
-import com.app.boombox.databinding.FragmentMainBinding
+import com.app.boombox.databinding.FragmentSongsBinding
 import com.app.boombox.models.Song
-import com.app.boombox.view.AlbumAdapter
+import com.app.boombox.view.SongAdapter
 import com.app.boombox.viewmodels.SongsViewModel
 import timber.log.Timber
 
@@ -23,24 +23,17 @@ private const val ARG_PARAM2 = "param2"
 
 /**
  * A simple [Fragment] subclass.
- * Use the [MainFragment.newInstance] factory method to
+ * Use the [SongsFragment.newInstance] factory method to
  * create an instance of this fragment.
- *
- *
- * This is also the Overview Fragment. Consists of Populars this week and Top Songs.
- *
- * Populars this week - consists of 5 random albums from your device as recommendations
- * Top Songs - lists out the top 10 songs based on the number of times they have been played.
- *
  */
-class MainFragment : Fragment() {
+class SongsFragment : Fragment() {
     // TODO: Rename and change types of parameters
     private var param1: String? = null
     private var param2: String? = null
 
-    lateinit var rootBinding: FragmentMainBinding
-    private lateinit var viewModel: SongsViewModel
+    lateinit var rootBinding: FragmentSongsBinding
 
+    private lateinit var viewModel: SongsViewModel
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -54,9 +47,10 @@ class MainFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        // Inflate the layout for this fragment
-        rootBinding = DataBindingUtil.inflate(inflater,
-            R.layout.fragment_main, container, false)
+        rootBinding = DataBindingUtil.inflate(
+            inflater,
+            R.layout.fragment_songs, container, false
+        )
 
         rootBinding.lifecycleOwner = this
         return rootBinding.root
@@ -67,28 +61,25 @@ class MainFragment : Fragment() {
 
         val (list, adapter) = initAdapter()
         initViewModel(list, adapter)
-
     }
 
-    private fun initAdapter(): Pair<ArrayList<Song>, AlbumAdapter> {
+    private fun initAdapter(): Pair<ArrayList<Song>, SongAdapter> {
         val list = ArrayList<Song>()
-        val adapter = AlbumAdapter(list, context)
-
-        rootBinding.populatAlbumsRecyclerView.adapter = adapter
+        val adapter = SongAdapter(list, context)
+        rootBinding.songsListRecyclerView.adapter = adapter
 
         return Pair(list, adapter)
     }
 
     private fun initViewModel(
         list: ArrayList<Song>,
-        adapter: AlbumAdapter
+        adapter: SongAdapter
     ) {
         viewModel = ViewModelProviders.of(this).get(SongsViewModel::class.java)
-        viewModel.popularAlbums.observe(viewLifecycleOwner, Observer { item ->
+        viewModel.allSongs.observe(viewLifecycleOwner, Observer { item ->
             Timber.i(" Viewmodel item size : ${item.size}")
-            rootBinding.populatAlbumsRecyclerView.also {
-                it.layoutManager =
-                    LinearLayoutManager(requireContext(), LinearLayoutManager.HORIZONTAL, false)
+            rootBinding.songsListRecyclerView.also {
+                it.layoutManager = LinearLayoutManager(requireContext())
                 adapter.notifyDataSetChanged()
             }
             list.addAll(item)
@@ -103,12 +94,12 @@ class MainFragment : Fragment() {
          *
          * @param param1 Parameter 1.
          * @param param2 Parameter 2.
-         * @return A new instance of fragment MainFragment.
+         * @return A new instance of fragment SongsFragment.
          */
         // TODO: Rename and change types and number of parameters
         @JvmStatic
         fun newInstance(param1: String, param2: String) =
-            MainFragment().apply {
+            SongsFragment().apply {
                 arguments = Bundle().apply {
                     putString(ARG_PARAM1, param1)
                     putString(ARG_PARAM2, param2)

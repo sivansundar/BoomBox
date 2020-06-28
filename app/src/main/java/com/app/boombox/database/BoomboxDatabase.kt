@@ -14,8 +14,8 @@ import timber.log.Timber
 @Database(entities = [Song::class], version = 1, exportSchema = false)
 abstract class BoomboxDatabase : RoomDatabase(){
 
-    abstract fun songDao() : SongDAO
-
+    abstract fun songDao(): SongDAO
+    abstract fun albumDao(): AlbumDAO
 
 
     private class BoomboxDatabaseCallback(

@@ -16,13 +16,16 @@ class SongsViewModel(application : Application) : AndroidViewModel(application) 
 
     private val repository : SongRepository
 
-    val allSongs : LiveData<List<Song>>
+    val allSongs: LiveData<List<Song>>
+    val popularAlbums: LiveData<List<Song>>
 
     init {
         Timber.i("SongsViewModel Created")
         val songsDao = BoomboxDatabase.getDatabase(application, viewModelScope).songDao()
-        repository = SongRepository(songsDao)
+        val albumDao = BoomboxDatabase.getDatabase(application, viewModelScope).albumDao()
+        repository = SongRepository(songsDao, albumDao)
         allSongs = repository.allSongs
+        popularAlbums = repository.popularAlbums
     }
 
 

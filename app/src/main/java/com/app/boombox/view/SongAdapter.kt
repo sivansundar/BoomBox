@@ -11,6 +11,7 @@ import com.app.boombox.models.Song
 import com.google.android.exoplayer2.util.Util
 import timber.log.Timber
 
+
 class SongAdapter(
     private val songitem: List<Song>,
     context: Context?
@@ -38,15 +39,10 @@ class SongAdapter(
         fun bind(item: Song) {
             binding.song = item
             binding.executePendingBindings()
+            //   binding.albumArtImageView.setImageBitmap(BitmapFactory.decodeFile(item.albumArt))
 
-            /* if (item.uri.isNotEmpty()) {
 
-                 binding.albumArtImageView.setImageURI(Uri.parse(item.albumArt))
 
-             } else {
-                 binding.albumArtImageView.setImageResource(R.drawable.albumart)
-
-             }*/
 
             binding.songCardView.setOnClickListener { itemView ->
                 Timber.i("Values : ${item.name} : URI ${item.uri}")

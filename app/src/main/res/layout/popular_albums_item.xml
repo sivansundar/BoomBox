@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <data>
+
+        <variable
+            name="album"
+            type="com.app.boombox.models.Song" />
+    </data>
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        <com.google.android.material.card.MaterialCardView
+            android:id="@+id/materialCardView"
+            android:layout_width="200dp"
+            android:layout_height="300dp"
+            android:layout_margin="10dp"
+            app:cardCornerRadius="18dp">
+
+
+            <RelativeLayout
+
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+                <ImageView
+                    android:id="@+id/albumArtcard_imageView"
+                    android:layout_width="match_parent"
+                    android:layout_height="200dp"
+                    android:src="@drawable/albumart">
+
+                </ImageView>
+
+                <TextView
+                    android:id="@+id/albumTitleText"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/albumArtcard_imageView"
+                    android:fontFamily="@font/roboto_regular"
+                    android:paddingLeft="10dp"
+                    android:paddingTop="10dp"
+                    android:text="@{album.albumname}"
+                    android:textStyle="bold"
+                    android:tooltipText="S" />
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/albumTitleText"
+                    android:fontFamily="@font/roboto_regular"
+                    android:paddingLeft="10dp"
+                    android:paddingTop="10dp"
+                    android:text="@{album.artist}" />
+
+
+            </RelativeLayout>
+
+        </com.google.android.material.card.MaterialCardView>
+
+
+    </LinearLayout>
+
+</layout>

@@ -44,7 +44,6 @@
                     android:layout_height="wrap_content"
                     android:padding="10dp"
                     android:text="@{song.name}"
-                    android:textColor="#000"
                     android:textSize="12sp"
                     android:textStyle="bold"
                     tools:text="Title" />
