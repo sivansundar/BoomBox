@@ -1,5 +1,13 @@
 # BoomBox
-A music player for Android built using Kotlin. 
+A music player for Android built using ExoPlayer and Jetpack Compose. Written in Kotlin
+
+[Development in progress]
 
 ## Components used
-Will keep updating this as I progress.
+* Exoplayer
+* Room Persistance Library
+* Kotlin Coroutines
+* Material Design Components
+* MVVM
+
+[*In Progress*]
