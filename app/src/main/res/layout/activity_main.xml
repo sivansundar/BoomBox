@@ -8,77 +8,191 @@
 
     <!--   -->
 
+
     <androidx.coordinatorlayout.widget.CoordinatorLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
-        <com.google.android.material.appbar.AppBarLayout
+        <RelativeLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            android:layout_height="match_parent">
 
-            <com.google.android.material.appbar.MaterialToolbar
+
+            <com.google.android.material.appbar.AppBarLayout
+                android:id="@+id/appBarLayout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <com.google.android.material.appbar.MaterialToolbar
+                    android:layout_width="match_parent"
+                    android:layout_height="50dp"
+                    android:background="#fff"
+                    app:menu="@menu/main_menu">
+
+                </com.google.android.material.appbar.MaterialToolbar>
+
+
+                <com.google.android.material.tabs.TabLayout
+                    android:id="@+id/tabbedLayout"
+                    style="@style/Widget.MaterialComponents.TabLayout"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_horizontal"
+                    android:padding="10dp"
+                    android:requiresFadingEdge="horizontal"
+                    android:scrollbars="horizontal"
+                    app:tabGravity="center"
+                    app:tabMode="scrollable">
+
+                    <com.google.android.material.tabs.TabItem
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Overview" />
+
+                    <com.google.android.material.tabs.TabItem
+                        android:id="@+id/songsTab"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Songs" />
+
+                    <com.google.android.material.tabs.TabItem
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Playlist" />
+
+                    <com.google.android.material.tabs.TabItem
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Playlist" />
+
+                    <com.google.android.material.tabs.TabItem
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Playlist" />
+
+                    <com.google.android.material.tabs.TabItem
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Playlist" />
+
+
+                </com.google.android.material.tabs.TabLayout>
+
+
+            </com.google.android.material.appbar.AppBarLayout>
+
+
+            <androidx.viewpager.widget.ViewPager
+                android:id="@+id/viewPager"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_above="@id/currentSongCardLayout"
+                android:layout_below="@id/appBarLayout"
+                app:layout_behavior="com.google.android.material.appbar.AppBarLayout$ScrollingViewBehavior"></androidx.viewpager.widget.ViewPager>
+
+
+            <RelativeLayout
+                android:id="@+id/currentSongCardLayout"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:background="#fff"
-                app:menu="@menu/main_menu">
+                android:layout_alignParentBottom="true">
 
-            </com.google.android.material.appbar.MaterialToolbar>
+                <com.google.android.material.card.MaterialCardView
+                    android:id="@+id/currentSongCard"
+                    android:layout_width="match_parent"
+                    android:layout_height="80dp"
+                    android:elevation="10dp"
+                    android:fitsSystemWindows="true"
+                    app:cardBackgroundColor="#F8F8F8"
+                    app:cardCornerRadius="8dp"
+                    app:cardPreventCornerOverlap="true">
 
+                    <RelativeLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent">
 
-            <com.google.android.material.tabs.TabLayout
-                android:id="@+id/tabbedLayout"
-                style="@style/Widget.MaterialComponents.TabLayout"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center_horizontal"
-                android:padding="10dp"
-                android:requiresFadingEdge="horizontal"
-                android:scrollbars="horizontal"
-                android:layout_width="match_parent"
-                app:tabGravity="center"
-                app:tabMode="scrollable">
+                        <ImageView
+                            android:id="@+id/albumArtCard_ImageView"
+                            android:layout_width="100dp"
+                            android:layout_height="match_parent"
+                            android:scaleType="centerCrop"
+                            android:src="@drawable/albumart">
 
-                <com.google.android.material.tabs.TabItem
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="Overview" />
-
-                <com.google.android.material.tabs.TabItem
-                    android:id="@+id/songsTab"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="Songs" />
-
-                <com.google.android.material.tabs.TabItem
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="Playlist" />
-
-                <com.google.android.material.tabs.TabItem
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="Playlist" />
-
-                <com.google.android.material.tabs.TabItem
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="Playlist" />
-
-                <com.google.android.material.tabs.TabItem
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="Playlist" />
+                        </ImageView>
 
 
-            </com.google.android.material.tabs.TabLayout>
+                        <LinearLayout
+                            android:id="@+id/currentSongDetails_layout"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:layout_toLeftOf="@+id/currentSongPlaybackControls_layout"
+                            android:layout_toRightOf="@id/albumArtCard_ImageView"
+                            android:orientation="vertical">
+
+                            <TextView
+                                android:id="@+id/currentSong_title"
+                                android:layout_width="200dp"
+                                android:layout_height="wrap_content"
+                                android:layout_marginLeft="18dp"
+                                android:layout_marginTop="14dp"
+                                android:layout_toRightOf="@id/albumArtCard_ImageView"
+                                android:fontFamily="@font/roboto_medium"
+                                android:text="Bison"
+                                android:textSize="16sp"></TextView>
 
 
-        </com.google.android.material.appbar.AppBarLayout>
+                            <TextView
+                                android:layout_width="200dp"
+                                android:layout_height="wrap_content"
+                                android:layout_below="@+id/currentSong_title"
+                                android:layout_marginLeft="18dp"
+                                android:layout_marginTop="4dp"
+                                android:layout_toRightOf="@id/albumArtCard_ImageView"
+                                android:fontFamily="@font/roboto_medium"
+                                android:text="Artist"
+                                android:textSize="12sp" />
 
-        <androidx.viewpager.widget.ViewPager
-            android:id="@+id/viewPager"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            app:layout_behavior="com.google.android.material.appbar.AppBarLayout$ScrollingViewBehavior"></androidx.viewpager.widget.ViewPager>
+
+                        </LinearLayout>
+
+
+                        <LinearLayout
+                            android:id="@+id/currentSongPlaybackControls_layout"
+                            android:layout_width="wrap_content"
+                            android:layout_height="match_parent"
+                            android:layout_alignParentEnd="true"
+                            android:gravity="center"
+                            android:orientation="horizontal"
+                            android:paddingRight="20dp">
+
+                            <ImageButton
+                                android:id="@+id/playpause_button"
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="1"
+                                android:background="@drawable/round_play_arrow_black_48" />
+
+                            <ImageButton
+                                android:id="@+id/next_button"
+                                android:layout_width="0dp"
+
+                                android:layout_height="wrap_content"
+                                android:layout_weight="1"
+                                android:background="?attr/selectableItemBackground"
+                                android:src="@drawable/round_skip_next_black_48" />
+
+                        </LinearLayout>
+
+
+                    </RelativeLayout>
+
+                </com.google.android.material.card.MaterialCardView>
+
+
+            </RelativeLayout>
+
+
+        </RelativeLayout>
 
 
     </androidx.coordinatorlayout.widget.CoordinatorLayout>

@@ -11,7 +11,10 @@ import com.app.boombox.models.Song
 interface SongDAO {
 
     @Query("SELECT * FROM song_table ORDER BY name ASC")
-    fun getAllSongs() : LiveData<List<Song>>
+    fun getAllSongs(): LiveData<List<Song>>
+
+    @Query("SELECT * FROM song_table ORDER BY RANDOM() LIMIT 10")
+    fun getTop10Songs(): LiveData<List<Song>>
 
     @Insert(onConflict = OnConflictStrategy.IGNORE)
     suspend fun insert(song: Song)

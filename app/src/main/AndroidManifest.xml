@@ -15,10 +15,21 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
+        <activity
+            android:name=".activity.PlaybackActivity"
+            android:label="@string/title_activity_playback"
+            android:theme="@style/AppTheme.NoActionBar"></activity>
+
         <service
             android:name=".audio.AudioPlayerService"
             android:enabled="true"
-            android:exported="true"></service>
+            android:exported="true" />
+
+        <service android:name=".audio.MusicPlayerService">
+            <intent-filter>
+                <action android:name="android.media.browse.MediaBrowserService" />
+            </intent-filter>
+        </service>
 
         <activity android:name=".MainActivity">
             <intent-filter>

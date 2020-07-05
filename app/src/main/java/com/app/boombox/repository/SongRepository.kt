@@ -21,6 +21,9 @@ class SongRepository(
     val popularAlbums: LiveData<List<Song>> =
         albumDAO.getPopularAlbums()
 
+    val top10Songs: LiveData<List<Song>> =
+        songsDao.getTop10Songs()
+
     suspend fun insert(song: Song) {
         songsDao.insert(song)
     }

@@ -6,6 +6,9 @@ import androidx.room.Entity
 import androidx.room.PrimaryKey
 import kotlinx.android.parcel.Parcelize
 
+
+// Same model is used for pulling out Top Albums of the week
+
 @Entity(tableName = "song_table")
 @Parcelize
 data class Song(

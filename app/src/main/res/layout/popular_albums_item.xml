@@ -16,8 +16,8 @@
 
         <com.google.android.material.card.MaterialCardView
             android:id="@+id/materialCardView"
-            android:layout_width="200dp"
-            android:layout_height="300dp"
+            android:layout_width="150dp"
+            android:layout_height="200dp"
             android:layout_margin="10dp"
             app:cardCornerRadius="18dp">
 
@@ -30,12 +30,14 @@
                 <ImageView
                     android:id="@+id/albumArtcard_imageView"
                     android:layout_width="match_parent"
-                    android:layout_height="200dp"
+                    android:layout_height="100dp"
+                    android:scaleType="centerCrop"
                     android:src="@drawable/albumart">
 
                 </ImageView>
 
                 <TextView
+                    android:maxLines="1"
                     android:id="@+id/albumTitleText"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -44,6 +46,7 @@
                     android:paddingLeft="10dp"
                     android:paddingTop="10dp"
                     android:text="@{album.albumname}"
+                    android:textSize="12sp"
                     android:textStyle="bold"
                     android:tooltipText="S" />
 
@@ -54,6 +57,7 @@
                     android:fontFamily="@font/roboto_regular"
                     android:paddingLeft="10dp"
                     android:paddingTop="10dp"
+                    android:textSize="10sp"
                     android:text="@{album.artist}" />
 
 

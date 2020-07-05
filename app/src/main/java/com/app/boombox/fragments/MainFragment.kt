@@ -13,6 +13,7 @@ import com.app.boombox.R
 import com.app.boombox.databinding.FragmentMainBinding
 import com.app.boombox.models.Song
 import com.app.boombox.view.AlbumAdapter
+import com.app.boombox.view.SongAdapter
 import com.app.boombox.viewmodels.SongsViewModel
 import timber.log.Timber
 
@@ -55,8 +56,10 @@ class MainFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         // Inflate the layout for this fragment
-        rootBinding = DataBindingUtil.inflate(inflater,
-            R.layout.fragment_main, container, false)
+        rootBinding = DataBindingUtil.inflate(
+            inflater,
+            R.layout.fragment_main, container, false
+        )
 
         rootBinding.lifecycleOwner = this
         return rootBinding.root
@@ -65,12 +68,25 @@ class MainFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        val (list, adapter) = initAdapter()
-        initViewModel(list, adapter)
+        val (list, adapter) = initTopAlbumsAdapter()
+        initTopAlbumsViewModel(list, adapter)
+
+        val (topSongList, songadapter) = initTop10SongsAdapter()
+        initTopSongsViewModel(topSongList, songadapter)
 
     }
 
-    private fun initAdapter(): Pair<ArrayList<Song>, AlbumAdapter> {
+    private fun initTop10SongsAdapter(): Pair<ArrayList<Song>, SongAdapter> {
+        val list = ArrayList<Song>()
+        val adapter = SongAdapter(list, context)
+
+        rootBinding.top10SongsRecyclerView.adapter = adapter
+
+        return Pair(list, adapter)
+    }
+
+
+    private fun initTopAlbumsAdapter(): Pair<ArrayList<Song>, AlbumAdapter> {
         val list = ArrayList<Song>()
         val adapter = AlbumAdapter(list, context)
 
@@ -79,7 +95,8 @@ class MainFragment : Fragment() {
         return Pair(list, adapter)
     }
 
-    private fun initViewModel(
+
+    private fun initTopAlbumsViewModel(
         list: ArrayList<Song>,
         adapter: AlbumAdapter
     ) {
@@ -91,6 +108,26 @@ class MainFragment : Fragment() {
                     LinearLayoutManager(requireContext(), LinearLayoutManager.HORIZONTAL, false)
                 adapter.notifyDataSetChanged()
             }
+            list.addAll(item)
+        })
+
+    }
+
+    private fun initTopSongsViewModel(
+        list: ArrayList<Song>,
+        adapter: SongAdapter
+    ) {
+
+
+        viewModel.top10Songs.observe(viewLifecycleOwner, Observer { item ->
+            Timber.i(" Top 10 songs item size : ${item.size}")
+
+            rootBinding.top10SongsRecyclerView.also {
+                it.layoutManager =
+                    LinearLayoutManager(requireContext(), LinearLayoutManager.VERTICAL, false)
+                adapter.notifyDataSetChanged()
+            }
+
             list.addAll(item)
         })
 

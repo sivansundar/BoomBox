@@ -18,12 +18,13 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent">
 
+
             <TextView
                 android:id="@+id/popularTitleLabel"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="32dp"
-                android:layout_marginTop="36dp"
+                android:layout_marginTop="16dp"
                 android:layout_marginEnd="32dp"
                 android:fontFamily="@font/roboto_medium"
                 android:text="Popular This Week"
@@ -45,17 +46,18 @@
                 app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
                 app:layout_constraintBottom_toTopOf="@+id/textView"
                 app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.0"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/popularTitleLabel"
+                app:layout_constraintVertical_bias="0.583"
                 tools:listitem="@layout/popular_albums_item" />
-
 
             <TextView
                 android:id="@+id/textView"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="32dp"
-                android:layout_marginTop="408dp"
+                android:layout_marginTop="264dp"
                 android:layout_marginEnd="32dp"
                 android:fontFamily="@font/roboto_medium"
                 android:text="Top Songs"
@@ -65,6 +67,23 @@
                 app:layout_constraintHorizontal_bias="0.0"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/popularTitleLabel" />
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/top10SongsRecyclerView"
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_marginTop="20dp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.0"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/textView"
+                app:layout_constraintVertical_bias="0.04"
+                tools:listitem="@layout/song_item">
+
+
+            </androidx.recyclerview.widget.RecyclerView>
+
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 

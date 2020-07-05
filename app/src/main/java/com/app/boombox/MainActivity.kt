@@ -22,6 +22,7 @@ import com.app.boombox.fragments.MainFragment
 import com.app.boombox.fragments.PlaylistFragment
 import com.app.boombox.fragments.SongsFragment
 import com.app.boombox.models.Song
+import com.app.boombox.viewmodels.PlaybackViewModel
 import com.app.boombox.viewmodels.SongsViewModel
 import com.google.android.material.bottomsheet.BottomSheetBehavior
 import com.mtechviral.mplaylib.MusicFinder
@@ -36,6 +37,8 @@ class MainActivity : AppCompatActivity() {
 
     lateinit var binding: ActivityMainBinding
     private lateinit var viewModel: SongsViewModel
+    private lateinit var playbackViewModel: PlaybackViewModel
+
     var pager: ViewPager? = null
 
     private lateinit var standardBottomSheetBehavior: BottomSheetBehavior<View>
@@ -77,6 +80,30 @@ class MainActivity : AppCompatActivity() {
         viewPagerAdapter.notifyDataSetChanged()
         setupPermissions()
 
+
+        playbackViewModel = ViewModelProviders.of(this).get(PlaybackViewModel::class.java)
+
+
+        binding.playpauseButton.setOnClickListener { view ->
+
+            if (binding.playpauseButton.background.constantState != resources.getDrawable(
+                    R.drawable.round_play_arrow_black_48,
+                    theme
+                ).constantState
+            ) {
+                binding.playpauseButton.background =
+                    resources.getDrawable(R.drawable.round_pause_black_48, theme)
+
+
+            } else {
+                binding.playpauseButton.background =
+                    resources.getDrawable(R.drawable.round_play_arrow_black_48, theme)
+
+
+            }
+
+
+        }
 
     }
 
